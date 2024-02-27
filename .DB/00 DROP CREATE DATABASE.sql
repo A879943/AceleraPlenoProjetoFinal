@@ -1,7 +1,11 @@
 USE [master]
 GO
 
-/****** Object:  Database [AceleraPlenoDB]    Script Date: 27/02/2024 15:05:49 ******/
+/****** Object:  Database [AceleraPlenoDB]    Script Date: 27/02/2024 10:14:54 ******/
+DROP DATABASE [AceleraPlenoDB]
+GO
+
+/****** Object:  Database [AceleraPlenoDB]    Script Date: 27/02/2024 10:14:54 ******/
 CREATE DATABASE [AceleraPlenoDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
