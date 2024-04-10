@@ -1,3 +1,9 @@
+USE master
+GO
+
+CREATE DATABASE AceleraPlenoDB;
+GO
+
 USE [AceleraPlenoDB]
 GO
 /****** Object:  Table [dbo].[TBOPERACAO]    Script Date: 27/02/2024 10:16:50 ******/
@@ -124,7 +130,7 @@ CREATE TABLE [dbo].[TBTRANSPORTADORAVALORES](
 	[ID] [int] IDENTITY(1,1) NOT NULL,
 	[NUMCNPJ] [nvarchar](50) NOT NULL,
 	[DESCTRANSPORTADORA] [nvarchar](100) NOT NULL,
-	[PA] [int] NOT NULL,
+	[PA] [nvarchar](100) NOT NULL,
 	[DATAHORACARGA] [datetime2](7) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (

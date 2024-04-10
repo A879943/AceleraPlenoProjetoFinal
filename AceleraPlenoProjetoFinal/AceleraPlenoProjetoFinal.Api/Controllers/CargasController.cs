@@ -1,7 +1,8 @@
 ﻿using AceleraPlenoProjetoFinal.Api.Data;
 using AceleraPlenoProjetoFinal.Api.Models;
-using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AceleraPlenoProjetoFinal.Api.Controllers;
 
@@ -10,42 +11,49 @@ namespace AceleraPlenoProjetoFinal.Api.Controllers;
 public class CargasController : ControllerBase
 {
     private readonly DataContext _dataContext;
+    private Excel.Application excelApp;
 
     public CargasController(DataContext dataContext)
     {
         _dataContext = dataContext;
+        excelApp = new Excel.Application();
     }
 
     [HttpPost]
     [Route("import/transportadoravalores")]
     public IActionResult InserirTransportadoraValores()
     {
-        List<TransportadoraValoresModel> transportadoraList = new List<TransportadoraValoresModel>();
+        var transportadoraList = new List<TransportadoraValoresModel>();
 
-        string excelFilePath = System.IO.Directory.GetCurrentDirectory() + "\\Resources\\Transportadoras de Valores.xlsx";
+        Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\Transportadoras de Valores.xlsx");
+        Excel._Worksheet excelWS = excelWB.Sheets[1];
+        Excel.Range excelRange = excelWS.UsedRange;
 
-        var workbook = new XLWorkbook(excelFilePath);
+        int rowCount = excelRange.Rows.Count;
+        int columnCount = excelRange.Columns.Count;
 
-        var planilha = workbook.Worksheets.First(w => w.Name == "Planilha1");
-
-        var totalLinhas = planilha.Rows().Count();
-
-        // primeira linha é o cabecalho
-        for (int l = 3; l <= totalLinhas; l++)
+        for (int i = 3; i <= rowCount; i++)
         {
-            if (!string.IsNullOrEmpty(planilha.Cell($"B{l}").Value.ToString()))
+            if (!string.IsNullOrEmpty(excelRange.Cells[i, 1].Value))
             {
-                TransportadoraValoresModel transportadoraObj = new TransportadoraValoresModel()
+                var transportadoraObj = new TransportadoraValoresModel()
                 {
-                    NumeroCnpj = planilha.Cell($"B{l}").Value.ToString(),
-                    DescricaoTransportadora = planilha.Cell($"C{l}").Value.ToString(),
-                    PA = planilha.Cell($"D{l}").Value.ToString(),
+                    NumeroCnpj = excelRange.Cells[i, 1].Value2.ToString(),
+                    DescricaoTransportadora = excelRange.Cells[i, 2].Value2.ToString(),
+                    PA = excelRange.Cells[i, 3].Value2.ToString(),
                     DataHoraCarga = DateTime.Now
                 };
 
                 transportadoraList.Add(transportadoraObj);
             }
         }
+
+        Marshal.ReleaseComObject(excelWS);
+        Marshal.ReleaseComObject(excelRange);
+        excelWB.Close();
+        Marshal.ReleaseComObject(excelWB);
+        excelApp.Quit();
+        Marshal.ReleaseComObject(excelApp);
 
         _dataContext.AddRange(transportadoraList);
         _dataContext.SaveChanges();
@@ -57,30 +65,28 @@ public class CargasController : ControllerBase
     [Route("import/tipoterminal")]
     public IActionResult InserirTipoTerminal()
     {
-        List<TipoTerminalModel> tipoTerminalList = new List<TipoTerminalModel>();
+        var tipoTerminalList = new List<TipoTerminalModel>();
 
-        string excelFilePath = System.IO.Directory.GetCurrentDirectory() + "\\Resources\\TIPOS_TERMINAL.xlsx";
+        Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\TIPOS_TERMINAL.xlsx");
+        Excel._Worksheet excelWS = excelWB.Sheets[1];
+        Excel.Range excelRange = excelWS.UsedRange;
 
-        var workbook = new XLWorkbook(excelFilePath);
+        int rowCount = excelRange.Rows.Count;
+        int columnCount = excelRange.Columns.Count;
 
-        var planilha = workbook.Worksheets.First(w => w.Name == "Planilha1");
-
-        var totalLinhas = planilha.Rows().Count();
-
-        // primeira linha é o cabecalho
-        for (int l = 2; l <= totalLinhas; l++)
+        for (int i = 2; i <= rowCount; i++)
         {
-            if (!string.IsNullOrEmpty(planilha.Cell($"A{l}").Value.ToString()))
+            if (!string.IsNullOrEmpty(excelRange.Cells[i, 3].Value))
             {
-                TipoTerminalModel tipoTerminalObj = new TipoTerminalModel()
+                var tipoTerminalObj = new TipoTerminalModel()
                 {
-                    CodigoTipoTerminal = int.Parse(planilha.Cell($"B{l}").Value.ToString()),
-                    DescricaoTipoTerminal = planilha.Cell($"C{l}").Value.ToString(),
+                    CodigoTipoTerminal = int.Parse(excelRange.Cells[i, 2].Value2.ToString()),
+                    DescricaoTipoTerminal = excelRange.Cells[i, 3].Value2.ToString(),
                     AcessoLiberado = true,
                     NumCheckAlteracao = 0,
-                    PA = int.Parse(planilha.Cell($"A{l}").Value.ToString()),
-                    LimiteSuperior = int.Parse(planilha.Cell($"D{l}").Value.ToString()),
-                    LimiteInferior = int.Parse(planilha.Cell($"E{l}").Value.ToString()),
+                    PA = int.Parse(excelRange.Cells[i, 1].Value2.ToString()),
+                    LimiteSuperior = int.Parse(excelRange.Cells[i, 4].Value2.ToString()),
+                    LimiteInferior = int.Parse(excelRange.Cells[i, 5].Value2.ToString()),
                     DataHoraCarga = DateTime.Now
                 };
 
@@ -88,9 +94,68 @@ public class CargasController : ControllerBase
             }
         }
 
+
+        Marshal.ReleaseComObject(excelWS);
+        Marshal.ReleaseComObject(excelRange);
+        excelWB.Close();
+        Marshal.ReleaseComObject(excelWB);
+        excelApp.Quit();
+        Marshal.ReleaseComObject(excelApp);
+
         _dataContext.AddRange(tipoTerminalList);
         _dataContext.SaveChanges();
 
         return Ok(tipoTerminalList);
+    }
+
+    [HttpPost]
+    [Route("import/saldosiniciais")]
+    public IActionResult InserirSaldosIniciais()
+    {
+        var operacaoList = new List<OperacaoModel>();
+
+        Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\SALDOS INICIAIS 01.09.2022.xlsx");
+        Excel._Worksheet excelWS = excelWB.Sheets[3];
+        Console.WriteLine(excelWS.Name);
+        Console.WriteLine(excelWB.Sheets.Count);
+        Excel.Range excelRange = excelWS.UsedRange;
+
+        int rowCount = excelRange.Rows.Count;
+        int columnCount = excelRange.Columns.Count;
+
+        for (int i = 3; i <= rowCount; i++)
+        {
+            if (!string.IsNullOrEmpty(excelRange.Cells[i, 1].Value))
+            {
+                var operacaoObj = new OperacaoModel()
+                {
+                    CodigoTipoTerminal = 2,
+                    CodigoOperacao = excelRange.Cells[i, 1].Value2.ToString(),
+                    DescricaoOperacao = excelRange.Cells[i, 2].Value2.ToString(),
+                    CodigoHistorico = int.Parse(excelRange.Cells[i, 3].Value2.ToString()),
+                    DescricaoHistorico = excelRange.Cells[i, 4].Value2.ToString(),
+                    DataOperacao = DateTime.Parse(excelRange.Cells[i, 5].Value2.ToString()),
+                    CodigoTerminal = excelRange.Cells[i, 6].Value2.ToString(),
+                    Pa = int.Parse(excelRange.Cells[i, 7].Value2.ToString()),
+                    CodigoAut = excelRange.Cells[i, 8].Value.ToString(),
+                    Valor = decimal.Parse(excelRange.Cells[i, 9].Value2.ToString()),
+                    DataHoraCarga = DateTime.Now
+                };
+
+                operacaoList.Add(operacaoObj);
+            }
+        }
+
+        Marshal.ReleaseComObject(excelWS);
+        Marshal.ReleaseComObject(excelRange);
+        excelWB.Close();
+        Marshal.ReleaseComObject(excelWB);
+        excelApp.Quit();
+        Marshal.ReleaseComObject(excelApp);
+
+        _dataContext.AddRange(operacaoList);
+        _dataContext.SaveChanges();
+
+        return Ok(operacaoList);
     }
 }

@@ -12,4 +12,6 @@ public class DataContext : DbContext
     public DbSet<TransportadoraValoresModel> TransportadoraValores { get; set; }
 
     public DbSet<TipoTerminalModel> TipoTerminal  { get; set; }
+
+    public DbSet<OperacaoModel> Operacao { get; set; }
 }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AceleraPlenoProjetoFinal.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+148d9f4c5302bbd50f876c3493bb560b5a69080b")]
 [assembly: System.Reflection.AssemblyProductAttribute("AceleraPlenoProjetoFinal.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AceleraPlenoProjetoFinal.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

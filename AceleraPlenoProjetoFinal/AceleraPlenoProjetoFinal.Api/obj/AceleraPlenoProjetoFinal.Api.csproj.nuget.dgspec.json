@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {}
+    "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {}
   },
   "projects": {
-    "D:\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {
+    "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
+        "projectUniqueName": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
         "projectName": "AceleraPlenoProjetoFinal.Api",
-        "projectPath": "D:\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
+        "projectPath": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
         "packagesPath": "C:\\Users\\A598111\\.nuget\\packages\\",
-        "outputPath": "D:\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\obj\\",
+        "outputPath": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\A598111\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,10 +40,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "ClosedXML": {
-              "target": "Package",
-              "version": "[0.102.2, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.3, )"
@@ -76,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
