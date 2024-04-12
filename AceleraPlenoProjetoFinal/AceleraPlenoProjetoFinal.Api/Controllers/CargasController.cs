@@ -20,7 +20,7 @@ public class CargasController : ControllerBase
     }
 
     [HttpPost]
-    [Route("import/transportadoravalores")]
+    [Route("transportadoravalores")]
     public IActionResult InserirTransportadoraValores()
     {
         var transportadoraList = new List<TransportadoraValoresModel>();
@@ -62,7 +62,7 @@ public class CargasController : ControllerBase
     }
 
     [HttpPost]
-    [Route("import/tipoterminal")]
+    [Route("tipoterminal")]
     public IActionResult InserirTipoTerminal()
     {
         var tipoTerminalList = new List<TipoTerminalModel>();
@@ -82,7 +82,7 @@ public class CargasController : ControllerBase
                 {
                     CodigoTipoTerminal = int.Parse(excelRange.Cells[i, 2].Value2.ToString()),
                     DescricaoTipoTerminal = excelRange.Cells[i, 3].Value2.ToString(),
-                    AcessoLiberado = true,
+                    AcessoLiberado = 1,
                     NumCheckAlteracao = 0,
                     PA = int.Parse(excelRange.Cells[i, 1].Value2.ToString()),
                     LimiteSuperior = int.Parse(excelRange.Cells[i, 4].Value2.ToString()),
@@ -109,45 +109,74 @@ public class CargasController : ControllerBase
     }
 
     [HttpPost]
-    [Route("import/saldosiniciais")]
+    [Route("saldosiniciais")]
     public IActionResult InserirSaldosIniciais()
     {
         var operacaoList = new List<OperacaoModel>();
 
         Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\SALDOS INICIAIS 01.09.2022.xlsx");
-        Excel._Worksheet excelWS = excelWB.Sheets[3];
-        Console.WriteLine(excelWS.Name);
-        Console.WriteLine(excelWB.Sheets.Count);
-        Excel.Range excelRange = excelWS.UsedRange;
 
-        int rowCount = excelRange.Rows.Count;
-        int columnCount = excelRange.Columns.Count;
+        var tipoTerminalList = new List<string>() {
+            "CAIXAS",
+            "ATMS",
+            "TESOUREIROS ELETETRÔNICOS"
+        };
 
-        for (int i = 3; i <= rowCount; i++)
+        //Console.WriteLine(excelWS.Name);
+        //Console.WriteLine(excelWB.Sheets.Count);
+
+        for (int t = 1; t <= excelWB.Sheets.Count; t++)
         {
-            if (!string.IsNullOrEmpty(excelRange.Cells[i, 1].Value))
-            {
-                var operacaoObj = new OperacaoModel()
-                {
-                    CodigoTipoTerminal = 2,
-                    CodigoOperacao = excelRange.Cells[i, 1].Value2.ToString(),
-                    DescricaoOperacao = excelRange.Cells[i, 2].Value2.ToString(),
-                    CodigoHistorico = int.Parse(excelRange.Cells[i, 3].Value2.ToString()),
-                    DescricaoHistorico = excelRange.Cells[i, 4].Value2.ToString(),
-                    DataOperacao = DateTime.Parse(excelRange.Cells[i, 5].Value2.ToString()),
-                    CodigoTerminal = excelRange.Cells[i, 6].Value2.ToString(),
-                    Pa = int.Parse(excelRange.Cells[i, 7].Value2.ToString()),
-                    CodigoAut = excelRange.Cells[i, 8].Value.ToString(),
-                    Valor = decimal.Parse(excelRange.Cells[i, 9].Value2.ToString()),
-                    DataHoraCarga = DateTime.Now
-                };
+            Excel._Worksheet excelWS = excelWB.Sheets[t];
 
-                operacaoList.Add(operacaoObj);
+            string? sheetName = null;
+
+            foreach (var s in excelWS.Name.Trim().Split(' '))
+            {
+                if (s[s.Length - 1].ToString().ToLower() == "s")
+                    sheetName += s.Remove(s.Length - 1) + " ";
+
+                else
+                    sheetName = s + " ";
+            }
+
+            var dataTipoTerminal = _dataContext.TipoTerminal.Where(x => x.DescricaoTipoTerminal.Contains(sheetName.Trim())).FirstOrDefault();
+
+            if (dataTipoTerminal != null)
+            {
+                Excel.Range excelRange = excelWS.UsedRange;
+
+                int rowCount = excelRange.Rows.Count;
+                int columnCount = excelRange.Columns.Count;
+
+                for (int i = 3; i <= rowCount; i++)
+                {
+                    if (!string.IsNullOrEmpty(excelRange.Cells[i, 6].Value))
+                    {
+                        var operacaoObj = new OperacaoModel()
+                        {
+                            CodigoTipoTerminal = dataTipoTerminal.CodigoTipoTerminal,
+                            CodigoOperacao = excelRange.Cells[i, 1].Value2.ToString(),
+                            DescricaoOperacao = excelRange.Cells[i, 2].Value2.ToString(),
+                            CodigoHistorico = int.Parse(excelRange.Cells[i, 3].Value2.ToString()),
+                            DescricaoHistorico = excelRange.Cells[i, 4].Value2.ToString(),
+                            DataOperacao = DateTime.Parse(excelRange.Cells[i, 5].Value2.ToString()),
+                            CodigoTerminal = excelRange.Cells[i, 6].Value2.ToString(),
+                            Pa = int.Parse(excelRange.Cells[i, 7].Value2.ToString()),
+                            CodigoAut = excelRange.Cells[i, 8].Value.ToString(),
+                            Valor = decimal.Parse(excelRange.Cells[i, 9].Value2.ToString()),
+                            DataHoraCarga = DateTime.Now
+                        };
+
+                        operacaoList.Add(operacaoObj);
+                    }
+                }
+
+                Marshal.ReleaseComObject(excelWS);
+                Marshal.ReleaseComObject(excelRange);
             }
         }
 
-        Marshal.ReleaseComObject(excelWS);
-        Marshal.ReleaseComObject(excelRange);
         excelWB.Close();
         Marshal.ReleaseComObject(excelWB);
         excelApp.Quit();

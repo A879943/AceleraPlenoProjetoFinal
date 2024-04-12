@@ -15,7 +15,7 @@ namespace AceleraPlenoProjetoFinal.Api.Models
         public string DescricaoTipoTerminal { get; set; }
         
         [Column("BOLACESSOLIBERADO")]
-        public bool AcessoLiberado { get; set; }
+        public int AcessoLiberado { get; set; }
         
         [Column("NUMCHEKALTERACAO")]
         public int NumCheckAlteracao { get; set; }
