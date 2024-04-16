@@ -28,8 +28,11 @@ namespace AceleraPlenoProjetoFinal.Api.Models
         
         [Column("LIMINFERIOR")]
         public int LimiteInferior { get; set; }
-        
-        [Column("DATAHORACARGA")]
-        public DateTime DataHoraCarga { get; set; }
+
+        [Column("CODCRIADOPOR")]
+        public int CodigoCriadoPor { get; set; }
+
+        [Column("DATAHORACRIACAO")]
+        public DateTime DataHoraCriacao { get; set; }
     }
 }

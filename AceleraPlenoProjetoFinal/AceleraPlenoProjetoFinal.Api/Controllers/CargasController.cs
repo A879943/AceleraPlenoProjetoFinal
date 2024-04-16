@@ -87,7 +87,8 @@ public class CargasController : ControllerBase
                     PA = int.Parse(excelRange.Cells[i, 1].Value2.ToString()),
                     LimiteSuperior = int.Parse(excelRange.Cells[i, 4].Value2.ToString()),
                     LimiteInferior = int.Parse(excelRange.Cells[i, 5].Value2.ToString()),
-                    DataHoraCarga = DateTime.Now
+                    CodigoCriadoPor = 0,
+                    DataHoraCriacao = DateTime.Now
                 };
 
                 tipoTerminalList.Add(tipoTerminalObj);
