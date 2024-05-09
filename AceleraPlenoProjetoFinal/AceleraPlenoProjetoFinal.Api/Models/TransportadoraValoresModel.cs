@@ -1,22 +1,36 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AceleraPlenoProjetoFinal.Api.Models;
 
-[Table("TBTRANSPORTADORAVALORES")]
+[Table("06t_TRANSPORTADORAVALORES")]
 public class TransportadoraValoresModel
 {
-    [Column("ID")]
-    public int Id { get; set; }
+    [Key]
+    [Column("IDTRANSPORTADORAVALORES")]
+    public int IdTransportadoraValores { get; set; }
 
     [Column("NUMCNPJ")]
-    public string NumeroCnpj { get; set; }
+    public string Cnpj { get; set; }
 
     [Column("DESCTRANSPORTADORA")]
     public string DescricaoTransportadora { get; set; }
 
-    [Column("PA")]
-    public string PA { get; set; }
+    [Column("CODCRIADOPOR")]
+    public int CodCriadoPor { get; set; }
 
-    [Column("DATAHORACARGA")]
-    public DateTime DataHoraCarga { get; set; }
+    [Column("DATAHORACRIACAO")]
+    public DateTime DataHoraCriacao { get; set; }
+
+    [Column("CODALTERADOPOR")]
+    public int? CodAlteradoPor { get; set; } = null;
+
+    [Column("DATAHORAALTERACAO")]
+    public DateTime? DataHoraAlteracao { get; set; } = null;
+
+    [Column("CODINATIVOPOR")]
+    public int? CodInativoPor { get; set; } = null;
+
+    [Column("DATAHORAINATIVO")]
+    public DateTime? DataHoraInativo { get; set; } = null;
 }
