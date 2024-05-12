@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {}
+    "D:\\Repos\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {
+    "D:\\Repos\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
+        "projectUniqueName": "D:\\Repos\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
         "projectName": "AceleraPlenoProjetoFinal.Api",
-        "projectPath": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
-        "packagesPath": "C:\\Users\\A598111\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\obj\\",
+        "projectPath": "D:\\Repos\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\AceleraPlenoProjetoFinal.Api.csproj",
+        "packagesPath": "C:\\Users\\aland\\.nuget\\packages\\",
+        "outputPath": "D:\\Repos\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal\\AceleraPlenoProjetoFinal.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\A598111\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\aland\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -72,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.104/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
