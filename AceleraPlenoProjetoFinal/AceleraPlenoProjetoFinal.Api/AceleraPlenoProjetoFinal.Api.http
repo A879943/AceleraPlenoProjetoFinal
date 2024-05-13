@@ -1,6 +1,0 @@
-@AceleraPlenoProjetoFinal.Api_HostAddress = http://localhost:5123
-
-GET {{AceleraPlenoProjetoFinal.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
