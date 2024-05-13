@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AceleraPlenoProjetoFinal.Api", "AceleraPlenoProjetoFinal.Api\AceleraPlenoProjetoFinal.Api.csproj", "{22E90B5A-7461-4735-B0F4-9A91E4A5897D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AceleraPlenoProjetoFinal.Api", "AceleraPlenoProjetoFinal.Api\AceleraPlenoProjetoFinal.Api.csproj", "{22E90B5A-7461-4735-B0F4-9A91E4A5897D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultaNumerarios", "ConsultaNumerarios\ConsultaNumerarios.csproj", "{CAF3C814-6E7C-4FBD-9E9C-275A9295A8F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{22E90B5A-7461-4735-B0F4-9A91E4A5897D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22E90B5A-7461-4735-B0F4-9A91E4A5897D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22E90B5A-7461-4735-B0F4-9A91E4A5897D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF3C814-6E7C-4FBD-9E9C-275A9295A8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF3C814-6E7C-4FBD-9E9C-275A9295A8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF3C814-6E7C-4FBD-9E9C-275A9295A8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF3C814-6E7C-4FBD-9E9C-275A9295A8F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

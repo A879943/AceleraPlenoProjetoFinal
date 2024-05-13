@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 /AceleraPlenoProjetoFinal/AceleraPlenoProjetoFinal.Api/obj/Debug/net8.0/AceleraPlenoProjetoFinal.Api.AssemblyInfo.cs
 /AceleraPlenoProjetoFinal/AceleraPlenoProjetoFinal.Api/obj/Debug/net8.0/AceleraPlenoProjetoFinal.Api.AssemblyInfoInputs.cache
+/AceleraPlenoProjetoFinal/.vs/AceleraPlenoProjetoFinal/DesignTimeBuild/.dtbcache.v2
