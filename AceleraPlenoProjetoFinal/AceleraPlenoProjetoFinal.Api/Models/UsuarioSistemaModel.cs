@@ -3,24 +3,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AceleraPlenoProjetoFinal.Api.Models;
 
-[Table("07t_UNIDADEINSTITUICAOTRANSPORTADORAVALORES")]
-public class UnidadeInstituicaoTransportadoraValoresModel
+[Table("02t_USUARIOSISTEMA")]
+public class UsuarioSistemaModel
 {
     [Key]
-    [Column("IDUNIDADEINSTTRANSPORTADORAVALORES")]
-    public int IdUnidadeInstTransportadoraValores { get; set; }
+    [Column("IDUSUARIOSISTEMA")]
+    public int IdUsuarioSistema { get; set; }
 
-    [Column("IDTRANSPORTADORAVALORES")]
-    public int IdTransportadoraValores { get; set; }
+    [Column("IDUSUARIO")]
+    public string IdUsuario { get; set; }
 
-    [Column("IDUNIDADEINST")]
-    public string IdUnidadeInst { get; set; }
+    [Column("LOGIN")]
+    public string Login { get; set; }
+
+    [Column("PASSWORD")]
+    public string Password { get; set; }
+
+    [Column("SECRETKEY")]
+    public string SecretKey { get; set; }
+
+    [Column("BOLPRIMEIROLOGIN")]
+    public int BolPrimeiroLogin { get; set; }
+
+    [Column("ULTIMOLOGIN")]
+    public DateTime? UltimoLogin { get; set; } = null;
 
     [Column("CODCRIADOPOR")]
     public int CodCriadoPor { get; set; }
 
     [Column("DATAHORACRIACAO")]
-    public DateTime? DataHoraCriacao { get; set; }
+    public DateTime DataHoraCriacao { get; set; }
 
     [Column("CODALTERADOPOR")]
     public int? CodAlteradoPor { get; set; } = null;

@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AceleraPlenoProjetoFinal.Api.Models;
 
-[Table("07t_UNIDADEINSTITUICAOTRANSPORTADORAVALORES")]
-public class UnidadeInstituicaoTransportadoraValoresModel
+[Table("04t_USUARIOSISTEMAGRUPOACESSO")]
+public class UsuarioSistemaGrupoAcessoModel
 {
     [Key]
-    [Column("IDUNIDADEINSTTRANSPORTADORAVALORES")]
-    public int IdUnidadeInstTransportadoraValores { get; set; }
+    [Column("IDUSUARIOSISTEMAGRUPOACESSO")]
+    public int IdUsuarioSistemaGrupoAcesso { get; set; }
 
-    [Column("IDTRANSPORTADORAVALORES")]
-    public int IdTransportadoraValores { get; set; }
+    [Column("IDUSUARIOSISTEMA")]
+    public int IdUsuarioSistema { get; set; }
 
-    [Column("IDUNIDADEINST")]
-    public string IdUnidadeInst { get; set; }
+    [Column("IDGRUPOACESSO")]
+    public int IdGrupoAcesso { get; set; }
 
     [Column("CODCRIADOPOR")]
     public int CodCriadoPor { get; set; }

@@ -32,7 +32,7 @@ namespace AceleraPlenoProjetoFinal.Api.Models
         public int CodCriadoPor { get; set; }
 
         [Column("DATAHORACRIACAO")]
-        public DateTime? DataHoraCriacao { get; set; }
+        public DateTime DataHoraCriacao { get; set; }
 
         [Column("CODALTERADOPOR")]
         public int? CodAlteradoPor { get; set; } = null;

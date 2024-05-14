@@ -20,4 +20,14 @@ public class DataContext : DbContext
     public DbSet<TipoOperacaoModel> TipoOperacao { get; set; }
 
     public DbSet<OperacaoModel> Operacao { get; set; }
+    
+    public DbSet<UsuarioModel> Usuario { get; set; }
+
+    public DbSet<TerminalModel> Terminal { get; set; }
+
+    public DbSet<UsuarioSistemaModel> UsuarioSistema { get; set; }
+
+    public DbSet<GrupoAcessoModel> GrupoAcesso { get; set; }
+
+    public DbSet<UsuarioSistemaGrupoAcessoModel> UsuarioSistemaGrupoAcesso { get; set; }
 }

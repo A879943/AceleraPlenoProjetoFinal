@@ -3,24 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AceleraPlenoProjetoFinal.Api.Models;
 
-[Table("07t_UNIDADEINSTITUICAOTRANSPORTADORAVALORES")]
-public class UnidadeInstituicaoTransportadoraValoresModel
+[Table("03t_GRUPOACESSO")]
+public class GrupoAcessoModel
 {
     [Key]
-    [Column("IDUNIDADEINSTTRANSPORTADORAVALORES")]
-    public int IdUnidadeInstTransportadoraValores { get; set; }
+    [Column("IDGRUPOACESSO")]
+    public int IdGrupoAcesso { get; set; }
 
-    [Column("IDTRANSPORTADORAVALORES")]
-    public int IdTransportadoraValores { get; set; }
-
-    [Column("IDUNIDADEINST")]
-    public string IdUnidadeInst { get; set; }
+    [Column("DESCGRUPOACESSO")]
+    public string DescGrupoAcesso { get; set; }
 
     [Column("CODCRIADOPOR")]
     public int CodCriadoPor { get; set; }
 
     [Column("DATAHORACRIACAO")]
-    public DateTime? DataHoraCriacao { get; set; }
+    public DateTime DataHoraCriacao { get; set; }
 
     [Column("CODALTERADOPOR")]
     public int? CodAlteradoPor { get; set; } = null;

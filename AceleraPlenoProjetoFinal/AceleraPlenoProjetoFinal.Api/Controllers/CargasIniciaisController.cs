@@ -165,6 +165,8 @@ public class CargasIniciaisController : ControllerBase
 
                         unidadeTransportadoraObj.IdTransportadoraValores = transportadoraObj.IdTransportadoraValores;
                         unidadeTransportadoraObj.IdUnidadeInst = pa;
+                        unidadeTransportadoraObj.CodCriadoPor = 1;
+                        unidadeTransportadoraObj.DataHoraCriacao = DateTime.Now;
 
                         unidadeTransportadoraList.Add(unidadeTransportadoraObj);
                     }
@@ -363,5 +365,194 @@ public class CargasIniciaisController : ControllerBase
         _dataContext.SaveChanges();
 
         return Ok(operacaoList);
+    }
+
+    [HttpPost]
+    [Route("Usuario")]
+    public IActionResult InserirUsuario()
+    {
+        var usuarioList = new List<UsuarioModel>();
+
+        Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\Base de Usuários e Terminais Atuailzada.xlsx");
+        Excel._Worksheet excelWS = excelWB.Sheets[1];
+        Excel.Range excelRange = excelWS.UsedRange;
+
+        int rowCount = excelRange.Rows.Count;
+        int columnCount = excelRange.Columns.Count;
+
+        for (int i = 2; i <= rowCount; i++)
+        {
+            if (!string.IsNullOrEmpty(excelRange.Cells[i, 4].Value))
+            {
+                var usuarioObj = new UsuarioModel();
+
+                usuarioObj.IdUsuario = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 4].Value2));
+                usuarioObj.IdUnidadeInst = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 6].Value2));
+                usuarioObj.IdInstituicao = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 1].Value2));
+                usuarioObj.NumCheckAlteracao = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 3].Value2));
+                usuarioObj.IdInstituicaoUsuario = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 5].Value2));
+                usuarioObj.DescNomeUsuario = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 7].Value2));
+                usuarioObj.CpfUsuario = null;
+                usuarioObj.DataNascimentoUsuario = null;
+                usuarioObj.DescEmail = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 11].Value2));
+                usuarioObj.CelularUsuario = null;
+                usuarioObj.BolHabilitadoUsuario = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 8].Value2));
+                usuarioObj.DescStatusUsuario = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 9].Value2));
+                usuarioObj.BolVerificaNomeMaquina = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 10].Value2));
+                usuarioObj.CodCriadoPor = 1;
+                usuarioObj.DataHoraCriacao = DateTime.Now;
+
+                usuarioList.Add(usuarioObj);
+            }
+        }
+
+
+        Marshal.ReleaseComObject(excelWS);
+        Marshal.ReleaseComObject(excelRange);
+        excelWB.Close();
+        Marshal.ReleaseComObject(excelWB);
+        excelApp.Quit();
+        Marshal.ReleaseComObject(excelApp);
+
+        _dataContext.AddRange(usuarioList);
+        _dataContext.SaveChanges();
+
+        return Ok(usuarioList);
+    }
+
+    [HttpPost]
+    [Route("Terminal")]
+    public IActionResult InserirTerminal()
+    {
+        var terminalList = new List<TerminalModel>();
+
+        Excel.Workbook excelWB = excelApp.Workbooks.Open(System.IO.Directory.GetCurrentDirectory() + @"\Resources\TERMINAL.xlsx");
+        Excel._Worksheet excelWS = excelWB.Sheets[1];
+        Excel.Range excelRange = excelWS.UsedRange;
+
+        int rowCount = excelRange.Rows.Count;
+        int columnCount = excelRange.Columns.Count;
+
+        for (int i = 2; i <= rowCount; i++)
+        {
+            if (!string.IsNullOrEmpty(excelRange.Cells[i, 8].Value))
+            {
+                var terminalObj = new TerminalModel();
+
+                terminalObj.IdUnidadeInst = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 3].Value2));
+                terminalObj.IdTipoTerminal = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 6].Value2));
+                terminalObj.IdUsuario = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 8].Value2));
+                terminalObj.IdUsuarioLiberacao = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 9].Value2));
+                terminalObj.IdInstituicao = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 1].Value2));
+                terminalObj.IdProduto = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 2].Value2));
+                terminalObj.DataProcessamento = _validar.VerificarDadosData(Convert.ToString(excelRange.Cells[i, 4].Value2));
+                terminalObj.NumTerminal = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 5].Value2));
+                terminalObj.IdSituacaoTerminal = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 7].Value2));
+                terminalObj.DescEstTrabalho = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 10].Value2));
+                terminalObj.NumUltAutenticacao = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 11].Value2));
+                terminalObj.NumLoteCco = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 12].Value2));
+                terminalObj.MenorValorNota = _validar.VerificarDadosMonetario(Convert.ToString(excelRange.Cells[i, 13].Value2));
+                terminalObj.DataHoraLiberacao = _validar.VerificarDadosData(Convert.ToString(excelRange.Cells[i, 14].Value2));
+                terminalObj.NumLoteCheque = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 15].Value2));
+                terminalObj.NumUltSeqLancCco = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 16].Value2));
+                terminalObj.NumUltRemessa = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 17].Value2));
+                terminalObj.IdClienteCor = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 18].Value2));
+                terminalObj.NumLoteDoc = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 19].Value2));
+                terminalObj.NumUltSeqDoc = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 20].Value2));
+                terminalObj.DescVersaoSo = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 21].Value2));
+                terminalObj.DescMemoriaRam = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 22].Value2));
+                terminalObj.DescEspacoDisco = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 23].Value2));
+                terminalObj.DescPacoteServico = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 24].Value2));
+                terminalObj.NumLoteDec = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 25].Value2));
+                terminalObj.NumUltSeqDec = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 26].Value2));
+                terminalObj.ValorLimiteSaque = _validar.VerificarDadosMonetario(Convert.ToString(excelRange.Cells[i, 27].Value2));
+                terminalObj.ValorLimiteTerminal = _validar.VerificarDadosMonetario(Convert.ToString(excelRange.Cells[i, 28].Value2));
+                terminalObj.NumTesoureiro = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 29].Value2));
+                terminalObj.NumIpTesoureiro = _validar.VerificarDadosTexto(Convert.ToString(excelRange.Cells[i, 30].Value2));
+                terminalObj.CodTipoBalanceamento = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 31].Value2));
+                terminalObj.NumTimeOutDispensador = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 32].Value2));
+                terminalObj.CodLadoDepositario = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 33].Value2));
+                terminalObj.NumPortaTesoureiro = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 34].Value2));
+                terminalObj.NumCheckAlteracao = _validar.VerificarDadosInteiros(Convert.ToString(excelRange.Cells[i, 35].Value2));
+                terminalObj.CodCriadoPor = 1;
+                terminalObj.DataHoraCriacao = DateTime.Now;
+
+                terminalList.Add(terminalObj);
+
+                _dataContext.Add(terminalObj);
+                _dataContext.SaveChanges();
+            }
+        }
+
+
+        Marshal.ReleaseComObject(excelWS);
+        Marshal.ReleaseComObject(excelRange);
+        excelWB.Close();
+        Marshal.ReleaseComObject(excelWB);
+        excelApp.Quit();
+        Marshal.ReleaseComObject(excelApp);
+
+        //_dataContext.AddRange(terminalList);
+        //_dataContext.SaveChanges();
+
+        return Ok(terminalList);
+    }
+
+    [HttpPost]
+    [Route("UsuarioSistema")]
+    public IActionResult InserirUsuarioSistema()
+    {
+        var usuarioObj = new UsuarioModel();
+
+        usuarioObj.IdUsuario = "Administrador";
+        usuarioObj.IdUnidadeInst = "0";
+        usuarioObj.IdInstituicao = 691;
+        usuarioObj.NumCheckAlteracao = 0;
+        usuarioObj.IdInstituicaoUsuario = 691;
+        usuarioObj.DescNomeUsuario = "Administrador";
+        usuarioObj.CpfUsuario = null;
+        usuarioObj.DataNascimentoUsuario = null;
+        usuarioObj.DescEmail = null;
+        usuarioObj.CelularUsuario = null;
+        usuarioObj.BolHabilitadoUsuario = 1;
+        usuarioObj.DescStatusUsuario = null;
+        usuarioObj.BolVerificaNomeMaquina = 0;
+        usuarioObj.CodCriadoPor = 1;
+        usuarioObj.DataHoraCriacao = DateTime.Now;
+
+        _dataContext.Add(usuarioObj);
+        _dataContext.SaveChanges();
+
+        var usuarioSistemaObj = new UsuarioSistemaModel();
+
+        usuarioSistemaObj.IdUsuario = "Administrador";
+        usuarioSistemaObj.Login = "admin";
+        usuarioSistemaObj.Password = "123";
+        usuarioSistemaObj.SecretKey = "ABCDEFGHIJKL";
+        usuarioSistemaObj.BolPrimeiroLogin = 1;
+        usuarioSistemaObj.CodCriadoPor = 1;
+        usuarioSistemaObj.DataHoraCriacao = DateTime.Now;
+
+        var grupoAcessoObj = new GrupoAcessoModel();
+
+        grupoAcessoObj.DescGrupoAcesso = "Administrador";
+        grupoAcessoObj.CodCriadoPor = 1;
+        grupoAcessoObj.DataHoraCriacao = DateTime.Now;
+        
+        _dataContext.Add(usuarioSistemaObj);
+        _dataContext.Add(grupoAcessoObj);
+        _dataContext.SaveChanges();
+
+        var usuarioSistemaGrupoAcessoObj = new UsuarioSistemaGrupoAcessoModel();
+
+        usuarioSistemaGrupoAcessoObj.IdUsuarioSistema = _dataContext.UsuarioSistema.Where(u => u.IdUsuario == usuarioSistemaObj.IdUsuario).First().IdUsuarioSistema;
+        usuarioSistemaGrupoAcessoObj.IdGrupoAcesso = _dataContext.GrupoAcesso.Where(u => u.DescGrupoAcesso == grupoAcessoObj.DescGrupoAcesso).First().IdGrupoAcesso;
+        usuarioSistemaGrupoAcessoObj.CodCriadoPor = 1;
+        usuarioSistemaGrupoAcessoObj.DataHoraCriacao = DateTime.Now;
+
+        _dataContext.Add(usuarioSistemaGrupoAcessoObj);
+        _dataContext.SaveChanges();
+
+        return Ok("Usuário cadastrado com sucesso!");
     }
 }
